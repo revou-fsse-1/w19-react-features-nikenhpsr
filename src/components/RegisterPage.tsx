@@ -2,7 +2,8 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const history = useNavigate();
@@ -16,12 +17,13 @@ const RegisterPage: React.FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ name, email, password }),
             });
 
             if (response.ok) {
                 setRegistrationSuccess(true);
-                setUsername('');
+                setName('');
+                setEmail('');
                 setPassword('');
             } else {
                 console.log('Registration failed');
@@ -36,8 +38,12 @@ const RegisterPage: React.FC = () => {
         history('/');
     };
 
-    const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value);
+    const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    };
+
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
     };
 
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +58,13 @@ const RegisterPage: React.FC = () => {
             ) : (
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Username:
-                        <input type="text" value={username} onChange={handleUsernameChange} />
+                        Name:
+                        <input type="text" value={name} onChange={handleNameChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Email:
+                        <input type="email" value={email} onChange={handleEmailChange} />
                     </label>
                     <br />
                     <label>

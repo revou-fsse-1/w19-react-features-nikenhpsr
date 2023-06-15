@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
     const history = useNavigate();
@@ -16,14 +16,14 @@ const LoginPage: React.FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ email, password }),
             });
 
             if (response.ok) {
                 const { token } = await response.json();
                 localStorage.setItem('token', token);
                 setLoginSuccess(true);
-                setUsername('');
+                setEmail('');
                 setPassword('');
 
                 // Redirect to the dashboard page after successful login
@@ -41,8 +41,8 @@ const LoginPage: React.FC = () => {
         history('/register');
     };
 
-    const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value);
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
     };
 
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +57,8 @@ const LoginPage: React.FC = () => {
             ) : (
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Username:
-                        <input type="text" value={username} onChange={handleUsernameChange} />
+                        Email:
+                        <input type="email" value={email} onChange={handleEmailChange} />
                     </label>
                     <br />
                     <label>
@@ -75,4 +75,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
