@@ -16,9 +16,11 @@ const DashboardPage: React.FC = () => {
     const history = useNavigate();
 
     useEffect(() => {
-        fetchCategories();
-        fetchProfile();
-    }, []);
+        if (token) {
+            fetchCategories();
+            fetchProfile();
+        }
+    }, [token]);
 
     const fetchCategories = async () => {
         try {
