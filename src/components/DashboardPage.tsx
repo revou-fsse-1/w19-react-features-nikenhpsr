@@ -15,14 +15,7 @@ const DashboardPage: React.FC = () => {
     const { token, logout } = useContext(AuthContext);
     const history = useNavigate();
 
-    useEffect(() => {
-        if (token) {
-            fetchCategories();
-            fetchProfile();
-        }
-    }, [token]);
-
-    const fetchCategories = async () => {
+        const fetchCategories = async () => {
         try {
             const response = await axios.get('https://mock-api.arikmpt.com/api/category', {
                 headers: {
