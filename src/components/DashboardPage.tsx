@@ -22,7 +22,10 @@ const DashboardPage: React.FC = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        if (token) {
+        if (!token) {
+            // If the user is not logged in, redirect to the login page
+            history('/');
+        } else {
             fetchCategories();
         }
     }, []);
