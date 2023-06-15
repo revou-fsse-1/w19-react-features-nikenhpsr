@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You can see the preview in here:
 
-https://crud-react-app.nikenhpsr.site
+https://w19-react-features-nikenhpsr.vercel.app/
 
 ## Available Scripts
 

@@ -4,6 +4,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import DashboardPage from "./components/DashboardPage";
 import {AuthProvider} from "./components/AuthContext";
+import './Style.css'
 
 const App: React.FC = () => {
     return (
