@@ -15,6 +15,7 @@ const DashboardPage: React.FC = () => {
     const [name, setName] = useState('');
     const [categoryIdToUpdate, setCategoryIdToUpdate] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [filter, setFilter] = useState('all'); // 'all' | 'active' | 'inactive'
     const [deletedCategoryName, setDeletedCategoryName] = useState('');
     const { logout } = useContext(AuthContext);
@@ -50,6 +51,7 @@ const DashboardPage: React.FC = () => {
         if (categoryToUpdate) {
             setCategoryIdToUpdate(categoryId);
             setName(categoryToUpdate.name);
+            setIsActive(categoryToUpdate.is_active);
             setIsDialogOpen(true);
         }
     };
@@ -94,6 +96,7 @@ const DashboardPage: React.FC = () => {
                 {
                     id: categoryIdToUpdate,
                     name,
+                    is_active: isActive,
                 },
                 {
                     headers: {
@@ -103,7 +106,7 @@ const DashboardPage: React.FC = () => {
             );
             setCategories((prevCategories) => {
                 const updatedCategories = prevCategories.map((category) =>
-                    category.id === categoryIdToUpdate ? { ...category, name: name } : category
+                    category.id === categoryIdToUpdate ? { ...category, name: name, is_active: isActive } : category
                 );
                 return updatedCategories;
             });
@@ -248,6 +251,16 @@ const DashboardPage: React.FC = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                        <div className="flex items-center mb-2">
+                            <input
+                                type="checkbox"
+                                checked={isActive}
+                                onChange={(e) => setIsActive(e.target.checked)}
+                            />
+                            <label htmlFor="isActive" className="ml-2">
+                                Active
+                            </label>
+                        </div>
                         <div className="flex justify-end">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
