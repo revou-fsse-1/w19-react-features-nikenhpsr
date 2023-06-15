@@ -1,3 +1,4 @@
+// AuthProvider.tsx
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 
 interface AuthContextType {
@@ -27,11 +28,18 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     const login = (token: string) => {
-        setToken(token);
+        console.log('Received token:', token); // Add this line
+        try {
+            localStorage.setItem('token', token);
+            setToken(token);
+        } catch (error) {
+            console.error('Error storing token in localStorage:', error);
+        }
     };
 
     const logout = () => {
         setToken(null);
+        localStorage.removeItem('token');
     };
 
     return (

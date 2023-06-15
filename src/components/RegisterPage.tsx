@@ -55,7 +55,7 @@ const RegisterPage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue-500 p-6">
-            <h1 className="text-3xl font-bold text-white mb-4">Register Page</h1>
+            <h3 className="text-3xl font-bold text-white mb-4">Join Me Here!</h3>
             {registrationSuccess ? (
                 <p className="text-green-500">Your account has been created!</p>
             ) : (

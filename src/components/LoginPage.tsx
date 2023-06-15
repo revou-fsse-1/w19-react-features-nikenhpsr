@@ -6,6 +6,8 @@ const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
+    const [loginError, setLoginError] = useState('');
+
     const history = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -24,10 +26,15 @@ const LoginPage: React.FC = () => {
                 }
             );
 
+            /*console.log('API Response:', response); // Add this line
+            const responseBody = await response.text();
+            console.log('Response Body:', responseBody); // Add this line*/
+
             if (response.ok) {
-                const { token } = await response.json();
-                localStorage.setItem('token', token);
-                login(token);
+                const data = await response.json(); // Parse response body as JSON
+                const { token } = data.data; // Access the token property from the response data
+                console.log('Received token:', token); // Add this line
+                login(token); // Call the login function from AuthContext to store the token
                 setLoginSuccess(true);
                 setEmail('');
                 setPassword('');
@@ -41,6 +48,7 @@ const LoginPage: React.FC = () => {
             console.error('Error:', error);
         }
     };
+
 
     const handleRegister = () => {
         // Redirect to the register page
@@ -57,11 +65,14 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue-500 p-6">
-            <h1 className="text-3xl font-bold text-white mb-4">Login Page</h1>
+            <h1 className="text-3xl font-bold text-white mb-4">Welcome!</h1>
             {loginSuccess ? (
                 <p className="text-green-500">Login successful!</p>
             ) : (
                 <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+                    {loginError && (
+                        <p className="text-red-500 mb-4">{loginError}</p>
+                    )}
                     <div className="mb-4">
                         <label htmlFor="email" className="text-white block mb-2">
                             Email:
@@ -108,3 +119,6 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
+
+
